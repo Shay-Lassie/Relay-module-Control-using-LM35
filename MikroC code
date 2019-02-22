@@ -1,0 +1,39 @@
+unsigned int adc;
+void main()
+{
+ ADCON1 = 0x80;
+ TRISA = 0xFF; // PORTA is input
+ TRISB = 0;    // PORTB is output
+ do
+ {
+ adc = ADC_Read(1); // Get 10-bit results of AD conversion
+ adc >> 2;
+ delay_ms(5000);
+ //of channel 1
+ //PORTC = adc;      // Send lower 8 bits to PORTB
+       if(adc <  900){
+                 RB0_bit = 1;
+                 delay_ms(1000);
+                 RB1_bit = 1;
+                 delay_ms(1000);
+                 RB2_bit = 1;
+                 delay_ms(1000);
+                 }
+                 if((adc<600)&&(adc>850)){
+                                        RB0_bit = 1;
+                                        delay_ms(1000);
+                                        RB1_bit = 1;
+                                        delay_ms(1000);
+                                        RB2_bit = 0;
+                                        delay_ms(1000);
+                                        }
+                                        if(adc < 300){
+                                                       RB0_bit = 1;
+                                                       delay_ms(1000);
+                                                       RB1_bit = 0;
+                                                       delay_ms(1000);
+                                                       RB2_bit = 0;
+                                                       delay_ms(1000);
+                                                       }
+ } while(1);
+}
